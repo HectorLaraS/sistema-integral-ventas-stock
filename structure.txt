@@ -1,0 +1,58 @@
+inventario_app/
+│
+├── .env
+├── requirements.txt
+├── README.md
+│
+├── src/
+│   │
+│   ├── main.py
+│   │
+│   ├── config/
+│   │   ├── db_connection.py
+│   │   └── settings.py
+│   │
+│   ├── domain/
+│   │   ├── product.py
+│   │   ├── user.py
+│   │   └── inventory_movement.py
+│   │
+│   ├── repositories/
+│   │   ├── abstract/
+│   │   │   ├── product_repository.py
+│   │   │   └── user_repository.py
+│   │   │
+│   │   ├── product_psql.py
+│   │   └── user_psql.py
+│   │
+│   ├── services/
+│   │   ├── product_service.py
+│   │   ├── auth_service.py
+│   │   └── inventory_service.py
+│   │
+│   ├── api/
+│   │   ├── app.py
+│   │   │
+│   │   ├── routes/
+│   │   │   ├── product_routes.py
+│   │   │   ├── auth_routes.py
+│   │   │   └── inventory_routes.py
+│   │   │
+│   │   ├── schemas/
+│   │   │   ├── product_schema.py
+│   │   │   ├── auth_schema.py
+│   │   │   └── inventory_schema.py
+│   │   │
+│   │   └── dependencies/
+│   │       └── security.py
+│   │
+│   ├── utils/
+│   │   ├── logger.py
+│   │   └── helpers.py
+│   │
+│   └── logs/
+│       └── application.log
+│
+└── tests/
+    ├── test_products.py
+    └── test_auth.py

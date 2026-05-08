@@ -1,0 +1,30 @@
+Health
+├── GET /health
+└── GET /health/db
+
+Auth
+├── POST /auth/login
+└── GET /auth/me
+
+Products
+├── GET /products
+├── GET /products/{id}
+├── POST /products
+├── PUT /products/{id}
+└── DELETE /products/{id}
+
+Stock
+├── GET /stock
+└── GET /stock/{product_id}
+
+Movements
+├── GET /movements
+├── GET /movements/{id}
+├── POST /movements/in
+└── POST /movements/out
+
+Users
+├── GET /users
+├── POST /users
+├── PUT /users/{id}
+└── DELETE /users/{id}
