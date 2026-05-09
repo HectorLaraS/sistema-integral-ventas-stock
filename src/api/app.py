@@ -6,11 +6,12 @@ from src.api.routes.stock_routes import router as stock_router
 from src.api.routes.inventory_routes import router as inventory_router
 from src.api.routes.auth_routes import router as auth_router
 from fastapi.middleware.cors import CORSMiddleware
-
+from fastapi.openapi.docs import get_swagger_ui_html
+from fastapi.responses import HTMLResponse
 
 app = FastAPI(
     title=settings.APP_NAME,
-    version=settings.APP_VERSION
+    version=settings.APP_VERSION,
 )
 
 app.add_middleware(
