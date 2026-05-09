@@ -1,0 +1,12 @@
+admin:
+- crear usuarios
+- crear/editar/desactivar/reactivar productos
+- entradas/salidas
+- consultar todo
+
+operator:
+- entradas/salidas
+- consultar productos, stock y movimientos
+
+viewer:
+- solo consultar

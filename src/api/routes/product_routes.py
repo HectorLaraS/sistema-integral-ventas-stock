@@ -1,5 +1,5 @@
 from dataclasses import asdict
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 from src.services.product_service import ProductService
 from src.domain.product import Product
 from src.api.schemas.product_schema import (
@@ -7,6 +7,8 @@ from src.api.schemas.product_schema import (
     ProductResponse,
     ProductUpdateRequest
 )
+from src.domain.user import User
+from src.api.dependencies.security import get_current_user
 
 
 router = APIRouter(
@@ -16,14 +18,14 @@ router = APIRouter(
 
 
 @router.get("")
-def list_products():
+def list_products(current_user: User = Depends(get_current_user)):
     service = ProductService()
     products = service.list_products()
 
     return [asdict(product) for product in products]
 
 @router.post("", response_model=ProductResponse)
-def create_product(request: ProductCreateRequest):
+def create_product(request: ProductCreateRequest, current_user: User = Depends(get_current_user)):
     service = ProductService()
 
     product = Product(
@@ -48,7 +50,7 @@ def create_product(request: ProductCreateRequest):
     )
 
 @router.get("/{product_id}", response_model=ProductResponse)
-def get_product_by_id(product_id: int):
+def get_product_by_id(product_id: int, current_user: User = Depends(get_current_user)):
     service = ProductService()
     product = service.get_product_by_id(product_id)
 
@@ -70,9 +72,7 @@ def get_product_by_id(product_id: int):
 
 @router.put("/{product_id}", response_model=ProductResponse)
 def update_product(
-    product_id: int,
-    request: ProductUpdateRequest
-):
+    product_id: int, request: ProductUpdateRequest, current_user: User = Depends(get_current_user)):
     service = ProductService()
 
     product = Product(
@@ -106,7 +106,7 @@ def update_product(
     )
 
 @router.delete("/{product_id}")
-def delete_product(product_id: int):
+def delete_product(product_id: int, current_user: User = Depends(get_current_user)):
     service = ProductService()
 
     deleted = service.delete_product(product_id)
@@ -122,7 +122,7 @@ def delete_product(product_id: int):
     }
 
 @router.patch("/{product_id}/reactivate")
-def reactivate_product(product_id: int):
+def reactivate_product(product_id: int, current_user: User = Depends(get_current_user)):
     service = ProductService()
 
     reactivated = service.reactivate_product(product_id)

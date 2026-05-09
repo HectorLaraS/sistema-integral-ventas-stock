@@ -4,6 +4,7 @@ from src.config.db_connection import DBConnection
 from src.api.routes.product_routes import router as product_router
 from src.api.routes.stock_routes import router as stock_router
 from src.api.routes.inventory_routes import router as inventory_router
+from src.api.routes.auth_routes import router as auth_router
 
 
 app = FastAPI(
@@ -14,7 +15,7 @@ app = FastAPI(
 app.include_router(product_router)
 app.include_router(stock_router)
 app.include_router(inventory_router)
-
+app.include_router(auth_router)
 
 @app.get("/health")
 def health_check():

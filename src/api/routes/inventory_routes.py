@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 from src.domain.inventory_movement import InventoryMovement
 from src.services.inventory_service import InventoryService
 from src.api.schemas.inventory_schema import (
@@ -6,7 +6,8 @@ from src.api.schemas.inventory_schema import (
     InventoryOutRequest,
     InventoryMovementResponse,
 )
-
+from src.domain.user import User
+from src.api.dependencies.security import get_current_user
 
 router = APIRouter(
     prefix="/movements",
@@ -15,7 +16,7 @@ router = APIRouter(
 
 
 @router.post("/in", response_model=InventoryMovementResponse)
-def register_inventory_in(request: InventoryInRequest):
+def register_inventory_in(request: InventoryInRequest, current_user: User = Depends(get_current_user)):
     service = InventoryService()
 
     movement = InventoryMovement(
@@ -46,7 +47,7 @@ def register_inventory_in(request: InventoryInRequest):
     )
 
 @router.post("/out", response_model=InventoryMovementResponse)
-def register_inventory_out(request: InventoryOutRequest):
+def register_inventory_out(request: InventoryOutRequest, current_user: User = Depends(get_current_user)):
     service = InventoryService()
 
     movement = InventoryMovement(
@@ -77,7 +78,7 @@ def register_inventory_out(request: InventoryOutRequest):
     )
 
 @router.get("", response_model=list[InventoryMovementResponse])
-def list_movements():
+def list_movements(current_user: User = Depends(get_current_user)):
     service = InventoryService()
     movements = service.list_movements()
 
@@ -96,7 +97,7 @@ def list_movements():
     ]
 
 @router.get("/{movement_id}",response_model=InventoryMovementResponse)
-def get_movement_by_id(movement_id: int):
+def get_movement_by_id(movement_id: int, current_user: User = Depends(get_current_user)):
     service = InventoryService()
 
     movement = service.get_movement_by_id(
