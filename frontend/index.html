@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Inventario App</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="container">
+
+    <section id="login-section" class="card">
+        <h1>Inventario</h1>
+        <p>Iniciar sesión</p>
+
+        <input id="username" type="text" placeholder="Usuario">
+        <input id="password" type="password" placeholder="Password">
+
+        <button onclick="login()">Entrar</button>
+
+        <p id="login-message"></p>
+    </section>
+
+    <section id="dashboard-section" class="hidden">
+        <header class="topbar">
+            <h2>Dashboard Inventario</h2>
+            <button onclick="logout()">Cerrar sesión</button>
+        </header>
+
+        <div class="grid">
+            <button onclick="loadProducts()">Productos</button>
+            <button onclick="loadStock()">Stock</button>
+            <button onclick="loadMovements()">Movimientos</button>
+        </div>
+
+        <div class="card">
+            <h3>Resultados</h3>
+            <pre id="output"></pre>
+        </div>
+    </section>
+
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
