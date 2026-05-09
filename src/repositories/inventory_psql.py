@@ -159,3 +159,79 @@ class InventoryPSQL:
             created_by=row[6],
             created_at=row[7],
         )
+    
+    def list_movements(self) -> list[InventoryMovement]:
+        query = """
+            SELECT
+                movement_id,
+                product_id,
+                movement_type,
+                quantity,
+                reference_text,
+                notes,
+                created_by,
+                created_at
+            FROM inventario.inventory_movements
+            ORDER BY created_at DESC;
+        """
+
+        movements: list[InventoryMovement] = []
+
+        with self._db_connection.get_conn() as conn:
+            with conn.cursor() as cur:
+                cur.execute(query)
+                rows = cur.fetchall()
+
+        for row in rows:
+            movements.append(
+                InventoryMovement(
+                    movement_id=row[0],
+                    product_id=row[1],
+                    movement_type=row[2],
+                    quantity=row[3],
+                    reference_text=row[4],
+                    notes=row[5],
+                    created_by=row[6],
+                    created_at=row[7],
+                )
+            )
+
+        return movements
+    
+    def get_movement_by_id(
+        self,
+        movement_id: int
+    ) -> InventoryMovement | None:
+
+        query = """
+            SELECT
+                movement_id,
+                product_id,
+                movement_type,
+                quantity,
+                reference_text,
+                notes,
+                created_by,
+                created_at
+            FROM inventario.inventory_movements
+            WHERE movement_id = %s;
+        """
+
+        with self._db_connection.get_conn() as conn:
+            with conn.cursor() as cur:
+                cur.execute(query, (movement_id,))
+                row = cur.fetchone()
+
+        if row is None:
+            return None
+
+        return InventoryMovement(
+            movement_id=row[0],
+            product_id=row[1],
+            movement_type=row[2],
+            quantity=row[3],
+            reference_text=row[4],
+            notes=row[5],
+            created_by=row[6],
+            created_at=row[7],
+        )
