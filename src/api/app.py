@@ -2,6 +2,8 @@ from fastapi import FastAPI
 from src.config.settings import settings
 from src.config.db_connection import DBConnection
 from src.api.routes.product_routes import router as product_router
+from src.api.routes.stock_routes import router as stock_router
+from src.api.routes.inventory_routes import router as inventory_router
 
 
 app = FastAPI(
@@ -10,6 +12,8 @@ app = FastAPI(
 )
 
 app.include_router(product_router)
+app.include_router(stock_router)
+app.include_router(inventory_router)
 
 
 @app.get("/health")
