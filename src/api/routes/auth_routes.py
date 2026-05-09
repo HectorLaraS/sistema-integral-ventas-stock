@@ -7,7 +7,7 @@ from src.api.schemas.auth_schema import (
     UserResponse,
 )
 from src.domain.user import User
-from src.api.dependencies.security import get_current_user
+from src.api.dependencies.security import get_current_user, require_admin, require_operator_or_admin
 
 
 router = APIRouter(
@@ -17,7 +17,7 @@ router = APIRouter(
 
 
 @router.post("/register", response_model=UserResponse)
-def register_user(request: UserCreateRequest, current_user: User = Depends(get_current_user)):
+def register_user(request: UserCreateRequest, current_user: User = Depends(require_admin)):
     service = AuthService()
 
     try:

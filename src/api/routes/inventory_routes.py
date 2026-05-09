@@ -7,7 +7,7 @@ from src.api.schemas.inventory_schema import (
     InventoryMovementResponse,
 )
 from src.domain.user import User
-from src.api.dependencies.security import get_current_user
+from src.api.dependencies.security import get_current_user, require_operator_or_admin, require_admin
 
 router = APIRouter(
     prefix="/movements",
@@ -16,7 +16,7 @@ router = APIRouter(
 
 
 @router.post("/in", response_model=InventoryMovementResponse)
-def register_inventory_in(request: InventoryInRequest, current_user: User = Depends(get_current_user)):
+def register_inventory_in(request: InventoryInRequest, current_user: User = Depends(require_operator_or_admin)):
     service = InventoryService()
 
     movement = InventoryMovement(
@@ -47,7 +47,7 @@ def register_inventory_in(request: InventoryInRequest, current_user: User = Depe
     )
 
 @router.post("/out", response_model=InventoryMovementResponse)
-def register_inventory_out(request: InventoryOutRequest, current_user: User = Depends(get_current_user)):
+def register_inventory_out(request: InventoryOutRequest, current_user: User = Depends(require_operator_or_admin)):
     service = InventoryService()
 
     movement = InventoryMovement(
