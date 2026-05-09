@@ -19,3 +19,10 @@ class InventoryMovementResponse(BaseModel):
     notes: str | None = None
     created_by: int | None = None
     created_at: datetime
+
+class InventoryOutRequest(BaseModel):
+    product_id: int
+    quantity: int
+    reference_text: str | None = None
+    notes: str | None = None
+    created_by: int | None = None

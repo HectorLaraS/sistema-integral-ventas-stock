@@ -11,3 +11,9 @@ class InventoryService:
             raise ValueError("Quantity must be greater than zero")
 
         return self._repository.register_in(movement)
+    
+    def register_out(self, movement: InventoryMovement) -> InventoryMovement:
+        if movement.quantity is None or movement.quantity <= 0:
+            raise ValueError("Quantity must be greater than zero")
+
+        return self._repository.register_out(movement)
